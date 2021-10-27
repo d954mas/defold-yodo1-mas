@@ -1,0 +1,7 @@
+
+dependencies {
+    implementation 'com.android.support:support-v4:27.0.2'
+    implementation("com.justai.aimybox:core:0.15.0")
+    //  implementation("com.justai.aimybox:components:0.1.10")
+    implementation("com.justai.aimybox:google-platform-speechkit:0.15.0")
+}

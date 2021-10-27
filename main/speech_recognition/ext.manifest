@@ -1,0 +1,27 @@
+name: "yodo1_mas"
+platforms:
+    x86-osx:
+        context:
+            flags:      ["-std=c++11", "-stdlib=libc++"]
+            libs:       ["c++"]
+    x86_64-osx:
+        context:
+            flags:      ["-std=c++11", "-stdlib=libc++"]
+            libs:       ["c++"]
+    armv7-android:
+        context:
+            flags:      ["-std=c++11"]
+            jetifier: true
+    arm64-android:
+        context:
+            flags:      ["-std=c++11"]
+            jetifier: true
+    x86-win32:
+        context:
+            flags:      ["-std=c++11"]
+    x86_64-win32:
+        context:
+            flags:      ["-std=c++11"]
+    x86_64-linux:
+        context:
+            flags:      ["-std=c++11"]
