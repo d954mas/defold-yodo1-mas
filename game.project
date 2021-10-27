@@ -35,6 +35,8 @@ app_icon_96x96 = /assets/app_icons/icon_96.png
 app_icon_144x144 = /assets/app_icons/icon_144.png
 app_icon_192x192 = /assets/app_icons/icon_192.png
 input_method = HiddenInputField
+minimum_sdk_version = 19
+manifest = /AndroidManifest.xml
 
 [script]
 shared_state = 1
@@ -45,4 +47,7 @@ scale = 0.01
 
 [library]
 include_dirs = yodo1-mas
+
+[admob]
+app_id_android = ca-app-pub-3940256099942544~3347511713
 
