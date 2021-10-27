@@ -51,3 +51,6 @@ include_dirs = yodo1-mas
 [admob]
 app_id_android = ca-app-pub-3940256099942544~3347511713
 
+[native_extension]
+app_manifest = /yodo1-mas/yodo1-mas.appmanifest
+
