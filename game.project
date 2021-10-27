@@ -37,6 +37,7 @@ app_icon_192x192 = /assets/app_icons/icon_192.png
 input_method = HiddenInputField
 minimum_sdk_version = 19
 manifest = /AndroidManifest.xml
+package = com.d954mas.yodo1mas.test.dev
 
 [script]
 shared_state = 1
@@ -49,7 +50,7 @@ scale = 0.01
 include_dirs = yodo1-mas
 
 [admob]
-app_id_android = ca-app-pub-3940256099942544~3347511713
+app_id_android = ca-app-pub-4973750815225055~5359216502
 
 [native_extension]
 app_manifest = /yodo1-mas/yodo1-mas.appmanifest

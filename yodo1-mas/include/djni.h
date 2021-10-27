@@ -2,10 +2,10 @@
 
 #include <dmsdk/sdk.h>
 
-namespace djni {
+namespace yodo1mas {
 	JNIEnv* env();
 	jclass GetClass(JNIEnv* env, const char* classname);
-}
+
 
 struct ThreadAttacher {
 	JNIEnv *env;
@@ -26,5 +26,7 @@ struct ThreadAttacher {
 		}
 	}
 };
+
+}
 
 #endif
