@@ -55,11 +55,19 @@ static int LuaSetAdBuildConfig(lua_State* L){
     return 0;
 }
 
+static int LuaInitMAS(lua_State* L){
+     if(!lua_isstring(L,1)){
+             luaL_error(L,"need app key string");
+     }
+     init(lua_tostring(L,1));
+}
+
 }
 
 
 static const luaL_reg Module_methods[] = {
     {"setAdBuildConfig", yodo1mas::LuaSetAdBuildConfig},
+    {"init", yodo1mas::LuaInitMAS},
     {0, 0}
 };
 
@@ -75,6 +83,7 @@ static void LuaInit(lua_State* L){
 
 
 static dmExtension::Result InitializeMyExtension(dmExtension::Params* params) {
+    yodo1mas::initExtension();
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;

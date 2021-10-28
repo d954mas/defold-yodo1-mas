@@ -1,12 +1,16 @@
+#ifndef DJNI_H
+#define DJNI_H
+
 #if defined(DM_PLATFORM_ANDROID)
 
 #include <dmsdk/sdk.h>
 
-namespace yodo1mas {
+namespace yodo1masDjni {
 	JNIEnv* env();
 	jclass GetClass(JNIEnv* env, const char* classname);
+};
 
-
+namespace yodo1mas {
 struct ThreadAttacher {
 	JNIEnv *env;
 	bool has_attached;
@@ -28,5 +32,7 @@ struct ThreadAttacher {
 };
 
 }
+
+#endif
 
 #endif
