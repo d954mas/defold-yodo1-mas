@@ -1,8 +1,8 @@
 // myextension.cpp
 // Extension lib defines
-#define EXTENSION_NAME yodo1_mas
-#define LIB_NAME "yodo1_mas"
-#define MODULE_NAME "yodo1_mas"
+#define EXTENSION_NAME yodo1_mas_private
+#define LIB_NAME "yodo1_mas_private"
+#define MODULE_NAME "yodo1_mas_private"
 // include the Defold SDK
 #include <dmsdk/sdk.h>
 #include "yodo1_mas.h"
@@ -64,11 +64,24 @@ static int LuaInitMAS(lua_State* L){
     return 0;
 }
 
+static int LuaGetCallbackId(lua_State* L){
+    lua_pushnumber(L, getCallbackId());
+    return 1;
+}
+
+static int Lua_SetCallback(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    yodo1mas::SetLuaCallback(L, 1);
+    return 0;
+}
+
 }
 
 
 static const luaL_reg Module_methods[] = {
     {"setAdBuildConfig", yodo1mas::LuaSetAdBuildConfig},
+    {"getCallbackID", yodo1mas::LuaGetCallbackId},
+    {"setCallback", yodo1mas::Lua_SetCallback},
     {"init", yodo1mas::LuaInitMAS},
     {0, 0}
 };
@@ -92,10 +105,12 @@ static dmExtension::Result InitializeMyExtension(dmExtension::Params* params) {
 }
 
 static dmExtension::Result FinalizeMyExtension(dmExtension::Params* params) {
+    yodo1mas::finalizeExtension();
     return dmExtension::RESULT_OK;
 }
 
 static dmExtension::Result UpdateMyExtension(dmExtension::Params* params){
+    yodo1mas::updateExtension();
     return dmExtension::RESULT_OK;
 }
 

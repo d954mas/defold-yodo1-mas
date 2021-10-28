@@ -1,4 +1,4 @@
-name: "yodo1_mas"
+name: "yodo1_mas_private"
 platforms:
     x86-osx:
         context:
