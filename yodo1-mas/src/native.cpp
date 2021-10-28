@@ -57,9 +57,11 @@ static int LuaSetAdBuildConfig(lua_State* L){
 
 static int LuaInitMAS(lua_State* L){
      if(!lua_isstring(L,1)){
-             luaL_error(L,"need app key string");
+         luaL_error(L,"need app key string");
+     }else{
+        init(lua_tostring(L,1));
      }
-     init(lua_tostring(L,1));
+    return 0;
 }
 
 }

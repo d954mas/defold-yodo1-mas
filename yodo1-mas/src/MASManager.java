@@ -27,16 +27,17 @@ public class MASManager {
 
     }
 
-    void setAdBuildConfig(boolean enableAdaptiveBanner, boolean enableUserPrivacyDialog,
+    static void setAdBuildConfig(boolean enableAdaptiveBanner, boolean enableUserPrivacyDialog,
                           String userAgreementUrl, String privacyPolicyUrl) {
         Yodo1MasAdBuildConfig.Builder b = new Yodo1MasAdBuildConfig.Builder().enableAdaptiveBanner(enableAdaptiveBanner)
                 .enableUserPrivacyDialog(enableUserPrivacyDialog).userAgreementUrl(userAgreementUrl).privacyPolicyUrl(privacyPolicyUrl);
         Yodo1Mas.getInstance().setAdBuildConfig(b.build());
     }
 
-    void init(String appkey) {
+    static void init(String appkey) {
+        Log.i(TAG, "init");
         Yodo1Mas.getInstance().init(activity, appkey, new Yodo1Mas.InitListener() {
-            @Override
+           @Override
             public void onMasInitSuccessful() {
                 Log.i(TAG, "onMasInitSuccessful");
             }

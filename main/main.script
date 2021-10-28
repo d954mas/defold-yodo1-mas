@@ -6,7 +6,7 @@ function init(self)
 		yodo1_mas.setAdBuildConfig({
 			enableUserPrivacyDialog = true
 		})
-		yodo1_mas.init("bad key")
+		yodo1_mas.init("mYImAmZj2D")
 	end
 end
 

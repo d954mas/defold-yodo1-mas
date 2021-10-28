@@ -12,10 +12,12 @@ platforms:
         context:
             flags:      ["-std=c++11"]
             jetifier: true
+            aaptExtraPackages: ['androidx.core', 'androidx.work', com.google.ads, 'com.google.android.gms', 'com.google.android.gms.ads', 'com.google.android.gms.common']
     arm64-android:
         context:
             flags:      ["-std=c++11"]
             jetifier: true
+            aaptExtraPackages: ['androidx.core', 'androidx.work', com.google.ads, 'com.google.android.gms', 'com.google.android.gms.ads', 'com.google.android.gms.common']
     x86-win32:
         context:
             flags:      ["-std=c++11"]
