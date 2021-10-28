@@ -1,6 +1,13 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
+
+	if(yodo1_mas)then
+		yodo1_mas.setAdBuildConfig({
+			enableUserPrivacyDialog = true
+		})
+		yodo1_mas.init("bad key")
+	end
 end
 
 function on_input(self, action_id, action)
