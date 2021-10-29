@@ -105,12 +105,12 @@ static dmExtension::Result InitializeMyExtension(dmExtension::Params* params) {
 }
 
 static dmExtension::Result FinalizeMyExtension(dmExtension::Params* params) {
-    yodo1mas::finalizeExtension();
+    yodo1mas::finalizeExtension(params->m_L);
     return dmExtension::RESULT_OK;
 }
 
 static dmExtension::Result UpdateMyExtension(dmExtension::Params* params){
-    yodo1mas::updateExtension();
+    yodo1mas::updateExtension(params->m_L);
     return dmExtension::RESULT_OK;
 }
 

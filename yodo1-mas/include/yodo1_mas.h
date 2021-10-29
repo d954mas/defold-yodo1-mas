@@ -19,8 +19,8 @@ void callback_AddToQueue(int callbackId,const char* message,const char* data);
 void SetLuaCallback(lua_State* L, int pos);
 
 void initExtension();
-void finalizeExtension();
-void updateExtension();
+void finalizeExtension(lua_State* L);
+void updateExtension(lua_State* L);
 void init(const char* appKey);
 
 void setAdBuildConfig(bool enableAdaptiveBanner, bool enableUserPrivacyDialog, const char* userAgreementUrl, const char* privacyPolicyUrl);

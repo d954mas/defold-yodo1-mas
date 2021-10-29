@@ -15,14 +15,13 @@ function M.setAdBuildConfig(config)
     yodo1_mas_private.setAdBuildConfig(config)
 end
 
-function M.callback(_, callback_id, message,data)
+function M.callback(callback_id, message,data)
     print("yodo callback. id:" .. callback_id .. " message:" .. message)
     pprint(data)
 end
 
 function M.init(appKey,cb_success,cb_error)
     CHECKS("string","?function","?function")
-    yodo1_mas_private.setCallback(M.callback)
 
 
     local cb_id = yodo1_mas_private.getCallbackID()

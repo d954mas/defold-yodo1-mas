@@ -10,22 +10,23 @@ namespace yodo1mas {
 static int CALLBACK_ID = 1;
 static dmArray<CallbackData> m_callbacksQueue;
 static dmMutex::HMutex m_mutex;
-static dmScript::LuaCallbackInfo* m_luaCallback = 0x0;
+int fun_callback_ref  = LUA_REFNIL;
 
-static void DestroyCallback(){
-    if (m_luaCallback != 0x0) {
-        dmScript::DestroyCallback(m_luaCallback);
-        m_luaCallback = 0x0;
+static void DestroyCallback(lua_State* L){
+    if (fun_callback_ref != LUA_REFNIL) {
+        luaL_unref(L, LUA_REGISTRYINDEX, fun_callback_ref);
+        fun_callback_ref = LUA_REFNIL;
     }
 }
 
 void SetLuaCallback(lua_State* L, int pos){
     int type = lua_type(L, pos);
     if (type == LUA_TNONE || type == LUA_TNIL){
-        DestroyCallback();
+        DestroyCallback(L);
     }
     else{
-        m_luaCallback = dmScript::CreateCallback(L, pos);
+       lua_pushvalue(L,pos);
+       fun_callback_ref = luaL_ref(L,LUA_REGISTRYINDEX);
     }
 }
 
@@ -65,22 +66,19 @@ void initExtension(){
     m_mutex = dmMutex::New();
 }
 
-void finalizeExtension(){
+void finalizeExtension(lua_State* L){
     dmMutex::Delete(m_mutex);
-    DestroyCallback();
+    DestroyCallback(L);
 }
 
-static void InvokeCallback(int callbackId, const char* message, const char*json){
-    if (!dmScript::IsCallbackValid(m_luaCallback)){
-        dmLogError("yodo1mas callback is invalid.");
+static void InvokeCallback(lua_State* L, int callbackId, const char* message, const char*json){
+    if(fun_callback_ref == LUA_REFNIL){
+        dmLogError("yodo1mas callback is nil");
         return;
     }
 
-    lua_State* L = dmScript::GetCallbackLuaContext(m_luaCallback);
     int top = lua_gettop(L);
-    if (!dmScript::SetupCallback(m_luaCallback)){
-        return;
-    }
+    lua_rawgeti(L,LUA_REGISTRYINDEX,fun_callback_ref);
 
     lua_pushnumber(L, callbackId);
     lua_pushstring(L, message);
@@ -109,16 +107,17 @@ static void InvokeCallback(int callbackId, const char* message, const char*json)
     }
 
 
-    int number_of_arguments = 4;
 
-    int ret = dmScript::PCall(L, number_of_arguments, 0);
-    (void)ret;
-    dmScript::TeardownCallback(m_luaCallback);
+    if (lua_pcall(L, 3, 0, 0) != 0){
+        const char* error_message = lua_tostring(L,-1);
+        lua_pop(L,1);
+        luaL_error(L, "callback error:%s", error_message);
+    }
 
     assert(top == lua_gettop(L));
 }
 
-void updateExtension(){
+void updateExtension(lua_State* L){
     if (m_callbacksQueue.Empty()){
         return;
     }
@@ -128,7 +127,7 @@ void updateExtension(){
     for(uint32_t i = 0; i != m_callbacksQueue.Size(); ++i)
     {
         CallbackData* data = &m_callbacksQueue[i];
-        InvokeCallback(data->callbackId, data->message, data->data);
+        InvokeCallback(L,data->callbackId, data->message, data->data);
 
         free(data->message);
         if(data->data)
