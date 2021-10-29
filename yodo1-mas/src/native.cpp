@@ -64,6 +64,11 @@ static int LuaInitMAS(lua_State* L){
     return 0;
 }
 
+static int LuaShowBannerAd(lua_State* L){
+    showBannerAd(lua_tostring(L,1),lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    return 0;
+}
+
 static int LuaGetCallbackId(lua_State* L){
     lua_pushnumber(L, getCallbackId());
     return 1;
@@ -82,6 +87,7 @@ static const luaL_reg Module_methods[] = {
     {"setAdBuildConfig", yodo1mas::LuaSetAdBuildConfig},
     {"getCallbackID", yodo1mas::LuaGetCallbackId},
     {"setCallback", yodo1mas::Lua_SetCallback},
+    {"showBannerAd", yodo1mas::LuaShowBannerAd},
     {"init", yodo1mas::LuaInitMAS},
     {0, 0}
 };
@@ -91,6 +97,22 @@ static void LuaInit(lua_State* L){
 	int top = lua_gettop(L);
 	// Register lua names
 	luaL_register(L, MODULE_NAME, Module_methods);
+
+	lua_newtable(L);
+            lua_pushnumber(L, 1);
+            lua_setfield(L, -2, "BannerLeft");
+            lua_pushnumber(L, 2);
+            lua_setfield(L, -2, "BannerHorizontalCenter");
+            lua_pushnumber(L, 4);
+            lua_setfield(L, -2, "BannerRight");
+            lua_pushnumber(L, 8);
+            lua_setfield(L, -2, "BannerTop");
+            lua_pushnumber(L, 16);
+            lua_setfield(L, -2, "BannerVerticalCenter");
+            lua_pushnumber(L, 32);
+            lua_setfield(L, -2, "BannerBottom");
+    lua_setfield(L, -2, "Align");
+
 	lua_pop(L, 1);
 	assert(top == lua_gettop(L));
 }

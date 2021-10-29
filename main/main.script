@@ -10,6 +10,8 @@ function init(self)
 		})
 		YODO1_MAS.init("mYImAmZj2D",function()
 			print("init success")
+
+			YODO1_MAS.showBannerAd()
 		end,
 		function(error)
 			print("init error:" .. error.message)

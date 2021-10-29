@@ -8,8 +8,10 @@ import androidx.annotation.NonNull;
 
 import com.yodo1.mas.Yodo1Mas;
 import com.yodo1.mas.error.Yodo1MasError;
+import com.yodo1.mas.event.Yodo1MasAdEvent;
 import com.yodo1.mas.helper.model.Yodo1MasAdBuildConfig;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -19,12 +21,49 @@ public class MASManager {
     private static Activity activity;
 
     public static native void callbackResult(int callbackId, String message);
+
     public static native void callbackResultJson(int callbackId, String message, String json);
 
 
     public static void initExtension(Context context) {
         MASManager.context = context;
         MASManager.activity = (Activity) context;
+        Yodo1Mas.getInstance().setBannerListener(new Yodo1Mas.BannerListener() {
+            @Override
+            public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "BannerOnAdOpened", result.toString());
+            }
+
+            @Override
+            public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                    result.put("error", error.getJsonObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "BannerOnAdError", result.toString());
+            }
+
+            @Override
+            public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "BannerOnAdClosed", result.toString());
+
+            }
+        });
     }
 
 
@@ -41,15 +80,19 @@ public class MASManager {
             @Override
             public void onMasInitSuccessful() {
                 Log.i(TAG, "onMasInitSuccessful");
-                callbackResult(callbackId,"onMasInitSuccessful");
+                callbackResult(callbackId, "onMasInitSuccessful");
             }
 
             @Override
             public void onMasInitFailed(@NonNull Yodo1MasError error) {
                 Log.i(TAG, "onMasInitFailed:" + error);
-                callbackResultJson(callbackId,"onMasInitFailed",error.getJsonObject().toString());
+                callbackResultJson(callbackId, "onMasInitFailed", error.getJsonObject().toString());
             }
         });
+    }
+
+    static void showBannerAd(String placement, int align, int offsetX, int offsetY) {
+        Yodo1Mas.getInstance().showBannerAd(activity, placement, align, offsetX, offsetY);
     }
 
 

@@ -190,6 +190,22 @@ void setAdBuildConfig(bool enableAdaptiveBanner, bool enableUserPrivacyDialog, c
     env->DeleteLocalRef(cls);
 }
 
+void showBannerAd(const char* placement, int align, int offsetX, int offsetY){
+    JNIEnv* env = yodo1masDjni::env();
+    jclass cls = yodo1masDjni::GetClass(env, "com.d954mas.defold.yodo1.mas.MASManager");
+    jmethodID method = env->GetStaticMethodID(cls, "showBannerAd", "(Ljava/lang/String;III)V");
+    jstring jPlacement = NULL;
+    if(placement!= NULL){
+        jPlacement=  env->NewStringUTF(placement);
+    }
+    jint jAlign = align;
+    jint jOffsetX = offsetX;
+    jint jOffsetY = offsetY;
+    env->CallStaticVoidMethod(cls,method,jPlacement, jAlign, jOffsetX,jOffsetY);
+
+    env->DeleteLocalRef(cls);
+}
+
 
 
 

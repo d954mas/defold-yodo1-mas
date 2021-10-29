@@ -24,6 +24,7 @@ void updateExtension(lua_State* L);
 void init(const char* appKey);
 
 void setAdBuildConfig(bool enableAdaptiveBanner, bool enableUserPrivacyDialog, const char* userAgreementUrl, const char* privacyPolicyUrl);
+void showBannerAd(const char* placement, int align, int offsetX, int offsetY);
 
 
 
