@@ -29,6 +29,9 @@ void showBannerAd(const char* placement, int align, int offsetX, int offsetY);
 bool isInterstitialAdLoaded();
 void showInterstitialAd(const char* placement);
 
+bool isRewardedAdLoaded();
+void showRewardedAd(const char* placement);
+
 
 
 }

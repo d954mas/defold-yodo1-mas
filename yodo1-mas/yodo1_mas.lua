@@ -32,8 +32,16 @@ function M.callback(callback_id, message, data)
         if (M.interstitial_listener and M.interstitial_listener.onAddOpened) then M.interstitial_listener.onAddOpened(data.event) end
     elseif (message == "InterstitialOnAdError") then
         if (M.interstitial_listener and M.interstitial_listener.onAddError) then M.interstitial_listener.onAddError(data.event, data.error) end
-    elseif (message == "InterstitialAdClosed") then
+    elseif (message == "InterstitialOnAdClosed") then
         if (M.interstitial_listener and M.interstitial_listener.onAddClosed) then M.interstitial_listener.onAddClosed(data.event) end
+    elseif (message == "RewardOnAdOpened") then
+        if (M.reward_listener and M.reward_listener.onAddOpened) then M.reward_listener.onAddOpened(data.event) end
+    elseif (message == "RewardOnAdError") then
+        if (M.reward_listener and M.reward_listener.onAddError) then M.reward_listener.onAddError(data.event, data.error) end
+    elseif (message == "RewardOnAdClosed") then
+        if (M.reward_listener and M.reward_listener.onAddClosed) then M.reward_listener.onAddClosed(data.event) end
+    elseif (message == "RewardOnAdvertRewardEarned") then
+        if (M.reward_listener and M.reward_listener.onAdvertRewardEarned) then M.reward_listener.onAdvertRewardEarned(data.event) end
     end
 end
 
@@ -63,9 +71,17 @@ function M.setInterstitialListener(onAddOpened, onAddError, onAddClosed)
     }
 end
 
+function M.setRewardListener(onAddOpened, onAdvertRewardEarned, onAddError, onAddClosed)
+    M.reward_listener = {
+        onAddOpened = onAddOpened,
+        onAdvertRewardEarned = onAdvertRewardEarned,
+        onAddError = onAddError,
+        onAddClosed = onAddClosed,
+    }
+end
 
 function M.showBannerAd(placement, align, offsetX, offsetY)
-    align = align or bit.bor(yodo1_mas_private.Align.BannerBottom ,yodo1_mas_private.Align.BannerHorizontalCenter)
+    align = align or bit.bor(yodo1_mas_private.Align.BannerBottom, yodo1_mas_private.Align.BannerHorizontalCenter)
     offsetX = align or 0
     offsetY = align or 0
     yodo1_mas_private.showBannerAd(placement, align, offsetX, offsetY)
@@ -75,8 +91,16 @@ function M.isInterstitialAdLoaded()
     return yodo1_mas_private.isInterstitialAdLoaded()
 end
 
-function M.showInterstitialAd()
-    return yodo1_mas_private.showInterstitialAd()
+function M.showInterstitialAd(placement)
+    return yodo1_mas_private.showInterstitialAd(placement)
+end
+
+function M.isRewardedAdLoaded()
+    return yodo1_mas_private.isRewardedAdLoaded()
+end
+
+function M.showRewardedAd(placement)
+    return yodo1_mas_private.showRewardedAd(placement)
 end
 
 yodo1_mas_private.setCallback(M.callback)

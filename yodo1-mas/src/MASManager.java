@@ -100,6 +100,53 @@ public class MASManager {
                 callbackResultJson(-1, "InterstitialOnAdClosed", result.toString());
             }
         });
+
+        Yodo1Mas.getInstance().setRewardListener(new Yodo1Mas.RewardListener() {
+            @Override
+            public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "RewardOnAdOpened", result.toString());
+            }
+
+            @Override
+            public void onAdvertRewardEarned(@NonNull Yodo1MasAdEvent event) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "RewardOnAdvertRewardEarned", result.toString());
+            }
+
+            @Override
+            public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                    result.put("error", error.getJsonObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "RewardOnAdError", result.toString());
+            }
+
+            @Override
+            public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "RewardOnAdClosed", result.toString());
+            }
+        });
     }
 
 
@@ -138,6 +185,14 @@ public class MASManager {
 
     static boolean isInterstitialAdLoaded() {
         return Yodo1Mas.getInstance().isInterstitialAdLoaded();
+    }
+
+    static void showRewardedAd(String placement) {
+        Yodo1Mas.getInstance().showRewardedAd(activity, placement);
+    }
+
+    static boolean isRewardedAdLoaded() {
+        return Yodo1Mas.getInstance().isRewardedAdLoaded();
     }
 
 
