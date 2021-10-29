@@ -65,7 +65,11 @@ static int LuaInitMAS(lua_State* L){
 }
 
 static int LuaShowBannerAd(lua_State* L){
-    showBannerAd(lua_tostring(L,1),lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    const char* placement = NULL;
+    if(lua_isstring(L,1)){
+        placement = lua_tostring(L,1);
+    }
+    showBannerAd(placement,lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
     return 0;
 }
 
@@ -80,6 +84,21 @@ static int Lua_SetCallback(lua_State* L){
     return 0;
 }
 
+static int LuaIsInterstitialAdLoaded(lua_State* L){
+    bool result = isInterstitialAdLoaded();
+    lua_pushboolean(L,result);
+    return 1;
+}
+
+static int LuaShowInterstitialAd(lua_State* L){
+    const char* placement = NULL;
+    if(lua_isstring(L,1)){
+        placement = lua_tostring(L,1);
+    }
+    showInterstitialAd(placement);
+    return 0;
+}
+
 }
 
 
@@ -88,6 +107,8 @@ static const luaL_reg Module_methods[] = {
     {"getCallbackID", yodo1mas::LuaGetCallbackId},
     {"setCallback", yodo1mas::Lua_SetCallback},
     {"showBannerAd", yodo1mas::LuaShowBannerAd},
+    {"showInterstitialAd", yodo1mas::LuaShowInterstitialAd},
+    {"isInterstitialAdLoaded", yodo1mas::LuaIsInterstitialAdLoaded},
     {"init", yodo1mas::LuaInitMAS},
     {0, 0}
 };

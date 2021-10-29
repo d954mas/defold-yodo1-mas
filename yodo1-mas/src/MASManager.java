@@ -64,6 +64,42 @@ public class MASManager {
 
             }
         });
+
+        Yodo1Mas.getInstance().setInterstitialListener(new Yodo1Mas.InterstitialListener() {
+            @Override
+            public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "InterstitialOnAdOpened", result.toString());
+            }
+
+            @Override
+            public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                    result.put("error", error.getJsonObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "InterstitialOnAdError", result.toString());
+            }
+
+            @Override
+            public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
+                JSONObject result = new JSONObject();
+                try {
+                    result.put("event", event.getJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callbackResultJson(-1, "InterstitialOnAdClosed", result.toString());
+            }
+        });
     }
 
 
@@ -93,6 +129,15 @@ public class MASManager {
 
     static void showBannerAd(String placement, int align, int offsetX, int offsetY) {
         Yodo1Mas.getInstance().showBannerAd(activity, placement, align, offsetX, offsetY);
+    }
+
+
+    static void showInterstitialAd(String placement) {
+        Yodo1Mas.getInstance().showInterstitialAd(activity, placement);
+    }
+
+    static boolean isInterstitialAdLoaded() {
+        return Yodo1Mas.getInstance().isInterstitialAdLoaded();
     }
 
 

@@ -28,6 +28,12 @@ function M.callback(callback_id, message, data)
         if (M.banner_listener and M.banner_listener.onAddError) then M.banner_listener.onAddError(data.event, data.error) end
     elseif (message == "BannerAdClosed") then
         if (M.banner_listener and M.banner_listener.onAddClosed) then M.banner_listener.onAddClosed(data.event) end
+    elseif (message == "InterstitialOnAdOpened") then
+        if (M.interstitial_listener and M.interstitial_listener.onAddOpened) then M.interstitial_listener.onAddOpened(data.event) end
+    elseif (message == "InterstitialOnAdError") then
+        if (M.interstitial_listener and M.interstitial_listener.onAddError) then M.interstitial_listener.onAddError(data.event, data.error) end
+    elseif (message == "InterstitialAdClosed") then
+        if (M.interstitial_listener and M.interstitial_listener.onAddClosed) then M.interstitial_listener.onAddClosed(data.event) end
     end
 end
 
@@ -49,12 +55,28 @@ function M.setBannerListener(onAddOpened, onAddError, onAddClosed)
         onAddClosed = onAddClosed,
     }
 end
+function M.setInterstitialListener(onAddOpened, onAddError, onAddClosed)
+    M.interstitial_listener = {
+        onAddOpened = onAddOpened,
+        onAddError = onAddError,
+        onAddClosed = onAddClosed,
+    }
+end
+
 
 function M.showBannerAd(placement, align, offsetX, offsetY)
     align = align or bit.bor(yodo1_mas_private.Align.BannerBottom ,yodo1_mas_private.Align.BannerHorizontalCenter)
     offsetX = align or 0
     offsetY = align or 0
     yodo1_mas_private.showBannerAd(placement, align, offsetX, offsetY)
+end
+
+function M.isInterstitialAdLoaded()
+    return yodo1_mas_private.isInterstitialAdLoaded()
+end
+
+function M.showInterstitialAd()
+    return yodo1_mas_private.showInterstitialAd()
 end
 
 yodo1_mas_private.setCallback(M.callback)

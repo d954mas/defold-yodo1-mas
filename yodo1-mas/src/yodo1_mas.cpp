@@ -206,6 +206,28 @@ void showBannerAd(const char* placement, int align, int offsetX, int offsetY){
     env->DeleteLocalRef(cls);
 }
 
+bool isInterstitialAdLoaded(){
+    JNIEnv* env = yodo1masDjni::env();
+    jclass cls = yodo1masDjni::GetClass(env, "com.d954mas.defold.yodo1.mas.MASManager");
+    jmethodID method = env->GetStaticMethodID(cls, "isInterstitialAdLoaded", "()Z");
+    bool result = env->CallStaticBooleanMethod(cls,method);
+    env->DeleteLocalRef(cls);
+
+    return result;
+}
+void showInterstitialAd(const char* placement){
+    JNIEnv* env = yodo1masDjni::env();
+    jclass cls = yodo1masDjni::GetClass(env, "com.d954mas.defold.yodo1.mas.MASManager");
+    jmethodID method = env->GetStaticMethodID(cls, "showInterstitialAd", "(Ljava/lang/String;)V");
+
+    jstring jPlacement = NULL;
+    if(placement!= NULL){
+        jPlacement=  env->NewStringUTF(placement);
+    }
+
+    env->CallStaticVoidMethod(cls,method,jPlacement);
+    env->DeleteLocalRef(cls);
+}
 
 
 

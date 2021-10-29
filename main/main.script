@@ -8,14 +8,43 @@ function init(self)
 		YODO1_MAS.setAdBuildConfig({
 			enableUserPrivacyDialog = true
 		})
+		YODO1_MAS.setBannerListener(function()
+			print("banner opened")
+		end,function(event,error)
+			print("banner error")
+			pprint(error)
+		end,function()
+			print("banner closed")
+		end)
+
+		YODO1_MAS.setInterstitialListener(function()
+			print("Interstitial opened")
+		end,function(event,error)
+			print("Interstitial error")
+			pprint(error)
+		end,function()
+			print("Interstitial closed")
+		end)
 		YODO1_MAS.init("mYImAmZj2D",function()
 			print("init success")
-
-			YODO1_MAS.showBannerAd()
 		end,
 		function(error)
 			print("init error:" .. error.message)
 		end)
+
+		timer.delay(5,false,function()
+			YODO1_MAS.showBannerAd()
+		end)
+
+		local interstitial
+		interstitial = function()
+			if(YODO1_MAS.isInterstitialAdLoaded())then
+				YODO1_MAS.showInterstitialAd()
+			else
+				timer.delay(2,false,interstitial)
+			end
+		end
+		timer.delay(2,false,interstitial)
 	end
 end
 
