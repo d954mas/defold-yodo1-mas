@@ -17,7 +17,12 @@ end
 
 function M.callback(callback_id, message,data)
     print("yodo callback. id:" .. callback_id .. " message:" .. message)
-    pprint(data)
+    local cb = M.callbacks[callback_id]
+    if(message == "onMasInitSuccessful")then
+        if(cb.cb_success)then cb.cb_success() end
+    elseif(message == "onMasInitFailed") then
+        if(cb.cb_error)then cb.cb_error(data) end
+    end
 end
 
 function M.init(appKey,cb_success,cb_error)

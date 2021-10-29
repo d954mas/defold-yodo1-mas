@@ -12,7 +12,7 @@ function init(self)
 			print("init success")
 		end,
 		function(error)
-			print("init error:" .. error)
+			print("init error:" .. error.message)
 		end)
 	end
 end
