@@ -18,11 +18,12 @@ Installing MAS instantly powers up your game with 15 ad networks and mediators. 
 This is experimental project.
 
 WARNING
-1)Not all api in binding
-2)Callback not save script instance.
-3)Not test in production.
-4)Banner and interstitial not visible(trying to fix it now).
-5)Only android is supported.
+
+1. Not all api binding
+2. Callback not save script instance.
+3. Not test in production.
+4. Banner and interstitial not visible(trying to fix it now).
+5. Only android is supported.
 
 If you like the extension you can support me on patreon.
 It will help me make more items for defold.
@@ -48,6 +49,9 @@ app_id_android = ca-app-pub-...
 
 ## EMMYLUA
 Supports emmylua. yodo1_mas_header
+
+## EXAMPLE
+[main.script](https://github.com/d954mas/defold-yodo1-mas/blob/master/main/main.script)
 
 ## API
 ```lua
@@ -94,14 +98,10 @@ function MAS.isInterstitialAdLoaded() end
 ---@param placement string|nil  
 function MAS.showInterstitialAd(placement) end  
   
-function MAS.isRewardedAdLoaded()  
-  return yodo1_mas_private.isRewardedAdLoaded()  
-end  
+function MAS.isRewardedAdLoaded() end  
   
 ---@param placement string|nil  
-function MAS.showRewardedAd(placement)  
-  return yodo1_mas_private.showRewardedAd(placement)  
-end  
+function MAS.showRewardedAd(placement) end  
   
   
 return MAS

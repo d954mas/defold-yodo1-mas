@@ -41,14 +41,10 @@ function MAS.isInterstitialAdLoaded() end
 ---@param placement string|nil
 function MAS.showInterstitialAd(placement) end
 
-function MAS.isRewardedAdLoaded()
-    return yodo1_mas_private.isRewardedAdLoaded()
-end
+function MAS.isRewardedAdLoaded() end
 
 ---@param placement string|nil
-function MAS.showRewardedAd(placement)
-    return yodo1_mas_private.showRewardedAd(placement)
-end
+function MAS.showRewardedAd(placement) end
 
 
 return MAS
