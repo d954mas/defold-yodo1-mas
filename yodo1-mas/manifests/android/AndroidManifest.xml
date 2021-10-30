@@ -8,7 +8,7 @@
         <!-- For extension-admob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="{{admob.app_id_android}}"/>
+            android:value="{{yodo1_mas.app_id_android}}"/>
 
     </application>
     

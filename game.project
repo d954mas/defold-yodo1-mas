@@ -49,7 +49,7 @@ scale = 0.01
 [library]
 include_dirs = yodo1-mas
 
-[admob]
+[yodo1_mas]
 app_id_android = ca-app-pub-4973750815225055~5359216502
 
 [native_extension]
