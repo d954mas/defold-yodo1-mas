@@ -43,29 +43,6 @@ function init(self)
             print("init error:" .. error.message)
         end)
 
-        timer.delay(5, false, function()
-            YODO1_MAS.showBannerAd()
-        end)
-
-        local interstitial
-        interstitial = function()
-            if (YODO1_MAS.isInterstitialAdLoaded()) then
-                YODO1_MAS.showInterstitialAd()
-            else
-                timer.delay(2, false, interstitial)
-            end
-        end
-        timer.delay(2, false, interstitial)
-
-        local rewarded
-        rewarded = function()
-            if (YODO1_MAS.isRewardedAdLoaded()) then
-                YODO1_MAS.showRewardedAd()
-            else
-                timer.delay(3, false, rewarded)
-            end
-        end
-        timer.delay(3, false, rewarded)
     end
 end
 

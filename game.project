@@ -1,5 +1,7 @@
 [project]
 title = yodo1-mas
+dependencies#0 = https://github.com/britzl/gooey/archive/refs/tags/9.1.1.zip
+dependencies#1 = https://github.com/britzl/gooey-dirtylarry/archive/main.zip
 
 [bootstrap]
 main_collection = /main/main.collectionc

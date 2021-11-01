@@ -11,7 +11,6 @@ dependencies {
     implementation ('com.yodo1.mas:full:4.3.2') {
         exclude group: 'androidx.multidex', module: 'multidex'
     }
-    implementation 'androidx.core:core:1.6.0'
 }
 
 android {
