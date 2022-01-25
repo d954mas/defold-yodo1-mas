@@ -22,7 +22,8 @@ WARNING
 1. Not all api binding
 2. Callback not save script instance.
 3. Not test in production.
-4. Banner and interstitial not visible(trying to fix it now).
+4. Banner and interstitial not visible in test mode(problem with sdk. For test ads sdk trying to get root view cast it to frame layaout and add ad view. 
+It not worked with native view of defold).
 5. Only android is supported.
 
 If you like the extension you can support me on patreon.
